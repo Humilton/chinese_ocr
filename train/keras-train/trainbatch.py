@@ -6,7 +6,9 @@ import torch
 import time
 import os, sys
 sys.path.insert(0, os.getcwd())
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
 import pydot
 import graphviz
 import keras.backend.tensorflow_backend as KTF

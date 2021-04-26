@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
 
 from .network import Network
 from ..fast_rcnn.config import cfg

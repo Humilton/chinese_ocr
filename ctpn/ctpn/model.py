@@ -1,7 +1,8 @@
 import sys
 import os
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
 
 from .cfg import Config
 from .other import resize_im
@@ -32,7 +33,7 @@ def load_tf_model():
     # sess = tf.Session(config=config)
     sess = tf.Session()
     ckpt = tf.train.get_checkpoint_state(
-        '/opt/chinese_ocr/ctpn/checkpoints/')
+        '/opt/checkpoints/')
     reader = tf.train.NewCheckpointReader(ckpt.model_checkpoint_path)
     var_to_shape_map = reader.get_variable_to_shape_map()
     for key in var_to_shape_map:

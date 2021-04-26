@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior() 
 
 from ..fast_rcnn.config import cfg
 from ..rpn_msr.anchor_target_layer_tf import anchor_target_layer as anchor_target_layer_py
@@ -98,8 +100,10 @@ class Network(object):
             img = tf.reshape(img, [N * H, W, C])
             img.set_shape([None, None, d_i])
             # 单层双向动态RNN
-            lstm_fw_cell = tf.contrib.rnn.LSTMCell(d_h, state_is_tuple=True)
-            lstm_bw_cell = tf.contrib.rnn.LSTMCell(d_h, state_is_tuple=True)
+            #lstm_fw_cell = tf.contrib.rnn.LSTMCell(d_h, state_is_tuple=True)
+            #lstm_bw_cell = tf.contrib.rnn.LSTMCell(d_h, state_is_tuple=True)
+            lstm_fw_cell = tf.nn.rnn_cell.LSTMCell(d_h, state_is_tuple=True)
+            lstm_bw_cell = tf.nn.rnn_cell.LSTMCell(d_h, state_is_tuple=True)
 
             lstm_out, last_state = tf.nn.bidirectional_dynamic_rnn(
                 lstm_fw_cell, lstm_bw_cell, img, dtype=tf.float32)
